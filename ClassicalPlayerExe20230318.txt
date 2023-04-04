@@ -1,0 +1,439 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.EtchedBorder;
+
+public class ClassicalPlayer {
+public static void main(String[] args) throws LineUnavailableException, IOException, UnsupportedAudioFileException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	new ClassicalPlayer();
+}	
+AudioInputStream[] classicalTrackAIS;
+Clip[] classicalTrackClip;
+Font baskervilleOldFace, berlinSansFB, blackadderITC, bookAntiqua, brushScriptMT, centuryGothic, comicSansMS, constantia, copperplateGothicLight, dejaVuSansLight, felixTitling,
+franlinGothicHeavy, hoeflerText, juiceITC, kunstlerScript, HYGothicMedium, letterGothic, modernNo20, oldEnglishTextMT, palaceScriptMT,
+rockWell, showcardGothic, timesNewRoman, vivaldi, wideLatin;
+JButton stopButton;
+JFrame classicalPlayerFrame;
+JLabel gramophone, gramophoneResized, gramophoneStartPosition, gramophoneStopped;
+JPanel togglePanel, gramophonePanel;
+JToggleButton[] toggle;
+URL[] classicalTrackURL;
+ClassicalPlayer() throws LineUnavailableException, IOException, UnsupportedAudioFileException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+	classicalTrackURL = new URL[20];
+	classicalTrackAIS = new AudioInputStream[20];
+	classicalTrackClip = new Clip[20];
+	classicalTrackURL[0] = getClass().getResource("Bach - Minuet in G Major-[AudioTrimmer.com].wav");
+	classicalTrackURL[1] = getClass().getResource("Bach - Prelude in C Major.wav");
+	classicalTrackURL[2] = getClass().getResource("Bach - Toccata and Fugue in D Minor (Best Version Ever)-(480p).wav");
+	classicalTrackURL[3] = getClass().getResource("Beethoven - 5th Symphony in C Minor (Full).wav");
+	classicalTrackURL[4] = getClass().getResource("Beethoven - Für Elise (Piano Version)-(480p).wav");
+	classicalTrackURL[5] = getClass().getResource("Beethoven - Moonlight Sonata (FULL)-(480p).wav");
+	classicalTrackURL[6] = getClass().getResource("Bizet - Les Toreadors_ from Carmen Suite No. 1-(480p)-[AudioTrimmer.com].wav");
+	classicalTrackURL[7] = getClass().getResource("Chopin - Fantaisie Impromptu-(480p).wav");
+	classicalTrackURL[8] = getClass().getResource("Chopin - Grand Valse Brillante-(480p)-[AudioTrimmer.com].wav");
+	classicalTrackURL[9] = getClass().getResource("Chopin - Heroic Polonaise (Op. 53 in A Flat Major)-[AudioTrimmer.com]-[AudioTrimmer.com].wav");
+	classicalTrackURL[10] = getClass().getResource("Chopin - Nocturne op.9 No.2-[AudioTrimmer.com].wav");
+	classicalTrackURL[11] = getClass().getResource("Chopin - Revolutionary Etude (Op. 10 No. 12)-[AudioTrimmer.com].wav");
+	classicalTrackURL[12] = getClass().getResource("Gershwin - Rhapsody In Blue(360p).wav");
+	classicalTrackURL[13] = getClass().getResource("Liszt - Liebestraum - Love Dream(360p).wav");
+	classicalTrackURL[14] = getClass().getResource("Mendelssohn - WEDDING MARCH - A MIDSUMMER NIGHTS DREAM - ORGAN SOLO.wav");
+	classicalTrackURL[15] = getClass().getResource("Mozart - Rondo Alla Turca (Turkish March)-[AudioTrimmer (mp3cut.net).wav");
+	classicalTrackURL[16] = getClass().getResource("Strauss - Also Sprach Zarathustra, Op. 30-[AudioTrimmer.com].wav");
+	classicalTrackURL[17] = getClass().getResource("Vivaldi - SPRING - THE FOUR SEASONS - Arranged for Organ by Jonathan Scott (mp3cut.net).wav");
+	classicalTrackURL[18] = getClass().getResource("Wagner - Ride of The Valkyries(360p).wav");
+	classicalTrackURL[19] = getClass().getResource("The US National Anthem played on UKs most EPIC Cathedral Organ _ Gloucester Cathedral.wav");
+	for (int i = 0; i < 20; i++) {
+	  classicalTrackAIS[i] = AudioSystem.getAudioInputStream(classicalTrackURL[i]);
+	  classicalTrackClip[i] = AudioSystem.getClip();
+	  classicalTrackClip[i].open(classicalTrackAIS[i]);
+	}
+	baskervilleOldFace = new Font("Baskerville Old Face", Font.PLAIN, 30);
+    berlinSansFB = new Font("Berlin Sans FB", Font.ITALIC, 25);
+    blackadderITC = new Font("Blackadder ITC", Font.PLAIN, 30);
+    bookAntiqua = new Font("Book Antiqua", Font.ITALIC, 25);
+    brushScriptMT = new Font("Brush Script MT", Font.ITALIC, 25);
+    centuryGothic = new Font("Century Gothic", Font.PLAIN, 25);   
+    comicSansMS = new Font("Comic Sans MS", Font.PLAIN, 25);
+    constantia = new Font("Constantia", Font.PLAIN, 19);
+    copperplateGothicLight = new Font("Copperplate Gothic Light", Font.PLAIN, 24);
+    dejaVuSansLight = new Font("DejaVu Sans Light", Font.ITALIC, 22);
+    felixTitling = new Font("Felix Titling", Font.ITALIC, 17);
+    franlinGothicHeavy = new Font("Franklin Gothic Heavy", Font.PLAIN, 25);
+    hoeflerText = new Font("Hoefler Text", Font.BOLD, 22);
+    HYGothicMedium = new Font("HYGothic-Medium", Font.ITALIC, 25);
+    juiceITC = new Font("Juice ITC", Font.PLAIN, 25);
+    kunstlerScript = new Font("Kunstler Script", Font.PLAIN, 25);
+    letterGothic = new Font("Letter Gothic", Font.PLAIN, 25);
+    modernNo20 = new Font("Modern No. 20", Font.ITALIC, 25);
+    oldEnglishTextMT = new Font("Old English Text MT", Font.PLAIN, 25);
+    palaceScriptMT = new Font("Palace Script MT", Font.PLAIN, 28);
+    rockWell = new Font("Rockwell", Font.BOLD, 18);
+    showcardGothic = new Font("Showcard Gothic", Font.ITALIC, 22);
+    timesNewRoman = new Font("Times New Roman", Font.PLAIN, 24);
+    vivaldi = new Font("Vivaldi", Font.PLAIN, 20);
+    wideLatin = new Font("Wide Latin", Font.PLAIN, 12);
+    togglePanel = new JPanel();
+    togglePanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+    togglePanel.setBounds(0, 0, 1305, 500);
+    togglePanel.setLayout(null);
+    gramophone = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("Gramophone.gif")));
+    gramophoneResized = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("GramophoneResized2.gif")));
+    gramophoneStartPosition = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("GramophoneStartPosition.gif")));
+    gramophoneStopped = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("GramophoneStopped.gif")));
+    gramophone.setBounds(-90, 40, 800, 450);
+    gramophoneResized.setBounds(-90, 90, 400, 225);
+    gramophoneStartPosition.setBounds(-90, 40, 800, 450);
+    gramophoneStopped.setBounds(-90, 90, 400, 225);
+    toggle = new JToggleButton[20];
+    gramophonePanel = new JPanel();
+    gramophonePanel.add(gramophoneStartPosition);
+    gramophonePanel.setBackground(Color.BLACK);
+    gramophonePanel.setBounds(300, 200, 600, 500);
+    gramophonePanel.setLayout(null);
+    stopButton = new JButton();
+    stopButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          for (int i = 0; i < 20; i++) {
+        	classicalTrackClip[i].stop();
+            if (gramophone.getParent() != null) {
+              gramophonePanel.remove(gramophone);
+              gramophonePanel.add(gramophoneStartPosition);
+              gramophonePanel.revalidate();
+              gramophonePanel.repaint();
+            }
+          }
+        }
+      });
+      stopButton.setBounds(1050, 550, 200, 60);
+      stopButton.setFocusable(false);
+      stopButton.setFont(timesNewRoman);
+      stopButton.setText("Stop Playing");
+      for (int i = 0; i < 20; i++) {
+          toggle[i] = new JToggleButton();
+          toggle[i].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+              for (int i = 0; i < 20; i++) {
+                if (e.getSource() == toggle[i]) {
+                  if (gramophoneStartPosition.getParent() != null) {
+                    gramophonePanel.remove(gramophoneStartPosition);
+                    gramophonePanel.add(gramophone);
+                    gramophonePanel.revalidate();
+                    gramophonePanel.repaint();
+                  }
+                }
+              }
+              if (e.getSource() == toggle[0]) {
+                classicalTrackClip[0].setMicrosecondPosition(0);
+                classicalTrackClip[0].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[0].setSelected(true);
+                for (int i = 1; i < 20; i++) {
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[1]) {
+                classicalTrackClip[1].setMicrosecondPosition(0);
+                classicalTrackClip[1].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[1].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 1) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[2]) {
+                classicalTrackClip[2].setMicrosecondPosition(0);
+                classicalTrackClip[2].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[2].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 2) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[3]) {
+                classicalTrackClip[3].setMicrosecondPosition(0);
+                classicalTrackClip[3].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[3].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 3) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[4]) {
+                classicalTrackClip[4].setMicrosecondPosition(0);
+                classicalTrackClip[4].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[4].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 4) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[5]) {
+                classicalTrackClip[5].setMicrosecondPosition(0);
+                classicalTrackClip[5].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[5].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 5) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[6]) {
+                classicalTrackClip[6].setMicrosecondPosition(0);
+                classicalTrackClip[6].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[6].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 6) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[7]) {
+                classicalTrackClip[7].setMicrosecondPosition(0);
+                classicalTrackClip[7].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[7].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 7) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[8]) {
+                classicalTrackClip[8].setMicrosecondPosition(0);
+                classicalTrackClip[8].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[8].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 8) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[9]) {
+                classicalTrackClip[9].setMicrosecondPosition(0);
+                classicalTrackClip[9].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[9].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 9) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[10]) {
+                classicalTrackClip[10].setMicrosecondPosition(0);
+                classicalTrackClip[10].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[10].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 10) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[11]) {
+                classicalTrackClip[11].setMicrosecondPosition(0);
+                classicalTrackClip[11].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[11].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 11) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[12]) {
+                classicalTrackClip[12].setMicrosecondPosition(0);
+                classicalTrackClip[12].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[12].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 12) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[13]) {
+                classicalTrackClip[13].setMicrosecondPosition(0);
+                classicalTrackClip[13].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[13].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 13) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[14]) {
+                classicalTrackClip[14].setMicrosecondPosition(0);
+                classicalTrackClip[14].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[14].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 14) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[15]) {
+                classicalTrackClip[15].setMicrosecondPosition(0);
+                classicalTrackClip[15].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[15].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 15) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[16]) {
+                classicalTrackClip[16].setMicrosecondPosition(0);
+                classicalTrackClip[16].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[16].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 16) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[17]) {
+                classicalTrackClip[17].setMicrosecondPosition(0);
+                classicalTrackClip[17].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[17].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 17) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[18]) {
+                classicalTrackClip[18].setMicrosecondPosition(0);
+                classicalTrackClip[18].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[18].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 18) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              } else if (e.getSource() == toggle[19]) {
+                classicalTrackClip[19].setMicrosecondPosition(0);
+                classicalTrackClip[19].loop(Clip.LOOP_CONTINUOUSLY);
+                toggle[19].setSelected(true);
+                for (int i = 0; i < 20; i++) {
+                  if (i == 19) {
+                    continue;
+                  }
+                  classicalTrackClip[i].stop();
+                  toggle[i].setSelected(false);
+                }
+              }
+            }
+          });
+          toggle[i].setFocusable(false);
+          togglePanel.add(toggle[i]);
+        }
+        toggle[0].setBounds(0,0,150,150);
+        toggle[1].setBounds(0,150,150,150);
+        toggle[2].setBounds(0,300,150,150);
+        toggle[3].setBounds(150,0,150,150);
+        toggle[4].setBounds(150,150,150,150);
+        toggle[5].setBounds(150,300,150,150);
+        toggle[6].setBounds(300,0,150,100);
+        toggle[7].setBounds(450,0,150,100);
+        toggle[8].setBounds(600,0,150,100);
+        toggle[9].setBounds(750,0,150,100);
+        toggle[10].setBounds(900,0,150,150);
+        toggle[11].setBounds(1050,0,150,150);
+        toggle[12].setBounds(900,150,150,150);
+        toggle[13].setBounds(1050,150,150,150);
+        toggle[14].setBounds(900,300,150,150);
+        toggle[15].setBounds(1050,300,150,150);
+        toggle[16].setBounds(300,100,150,100);
+        toggle[17].setBounds(450,100,150,100);
+        toggle[18].setBounds(600,100,150,100);
+        toggle[19].setBounds(750,100,150,100);
+        toggle[0].setFont(centuryGothic);
+        toggle[1].setFont(letterGothic);
+        toggle[2].setFont(oldEnglishTextMT);
+        toggle[3].setFont(hoeflerText);
+        toggle[4].setFont(berlinSansFB);
+        toggle[5].setFont(HYGothicMedium);
+        toggle[6].setFont(comicSansMS);
+        toggle[7].setFont(dejaVuSansLight);
+        toggle[8].setFont(palaceScriptMT);
+        toggle[9].setFont(constantia);
+        toggle[10].setFont(baskervilleOldFace);
+        toggle[11].setFont(brushScriptMT);
+        toggle[12].setFont(modernNo20);
+        toggle[13].setFont(blackadderITC);
+        toggle[14].setFont(felixTitling);
+        toggle[15].setFont(showcardGothic);
+        toggle[16].setFont(wideLatin);
+        toggle[17].setFont(vivaldi);
+        toggle[18].setFont(copperplateGothicLight);
+        toggle[19].setFont(rockWell);
+        toggle[0].setText("<html>Bach-<br/>Minuet in G Major<html>");
+        toggle[1].setText("<html>Bach-<br/>Prelude in C Major<html>");
+        toggle[2].setText("<html>Bach-<br/>Toccata and Fugue in D Minor<html>");
+        toggle[3].setText("<html>Beethoven<br/> - 5th Symphony in C Minor<html>");
+        toggle[4].setText("<html>Beethoven - <br/> Für Elise<html>");
+        toggle[5].setText("<html>Beethoven - <br/> Moonlight Sonata<html>");
+        toggle[6].setText("<html>Bizet - <br/> Les Toreadors<html>");
+        toggle[7].setText("<html>Chopin - <br/> Fantaisie Impromptu<html>");
+        toggle[8].setText("<html>Chopin - <br/> Grande Valse Brillante Op.18<html>");
+        toggle[9].setText("<html>Chopin - <br/> Heroic Polonaise Op. 53<html>");
+        toggle[10].setText("<html>Chopin - <br/> Nocturne Op.9 No.2<html>");
+        toggle[11].setText("<html>Chopin - <br/> Revolutionary Etude Op. 10 No. 12<html>");
+        toggle[12].setText("<html>Gershwin - <br/> Rhapsody In Blue<html>");
+        toggle[13].setText("<html>Liszt -  <br/> Liebestraum<html>");
+        toggle[14].setText("<html>Mendelssohn - <br/> A Midsummer Night's Dream");
+        toggle[15].setText("<html>Mozart - <br/> Rondo Alla Turca<html>");
+        toggle[16].setText("<html>Strauss - <br/> Also <br> Sprach Zarathustra, Op. 30<html>");
+        toggle[17].setText("<html>Vivaldi - <br/> Le quattro stagioni – La primavera<html>");
+        toggle[18].setText("<html>Wagner - <br/> Ride of The Valkyries<html>");
+        toggle[19].setText("<html>Star-Spangled <br/> Banner Organ Music<html>");
+        ImageIcon classicalMusicPlayerIcon = new ImageIcon(getClass().getClassLoader().getResource("ClassicalMusicPlayerIcon-transformed.png"));
+        classicalPlayerFrame = new JFrame();
+        classicalPlayerFrame.add(togglePanel);
+        classicalPlayerFrame.add(gramophonePanel);
+        classicalPlayerFrame.add(stopButton);	
+        classicalPlayerFrame.getContentPane().setBackground(Color.DARK_GRAY);
+        classicalPlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        classicalPlayerFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        classicalPlayerFrame.setIconImage(classicalMusicPlayerIcon.getImage());
+        classicalPlayerFrame.setLayout(null);
+        classicalPlayerFrame.setTitle("Classical Music Player");
+        classicalPlayerFrame.setVisible(true);
+}
+}
