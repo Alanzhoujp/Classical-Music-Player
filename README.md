@@ -10,4 +10,4 @@ IDE: Eclipse 2021.6
 
 Author: Alan Zhou
 
-Project Description: This Java program is a classical player featuring twenty classical soundtracks
+Project Description: A classical player featuring twenty classical soundtracks
