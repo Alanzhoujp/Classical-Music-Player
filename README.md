@@ -11,3 +11,5 @@ IDE: Eclipse 2021.6
 Author: Alan Zhou
 
 Project Description: A classical player featuring twenty classical soundtracks
+
+Note: Due to size limit, the exe file of this program cannot be uploaded to this repository.
